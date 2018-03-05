@@ -1,6 +1,8 @@
 const pathTo = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const prefixer = require('autoprefixer');
+const weexCSS = require('postcss-weex');
 const config = require('./config.js');
 const entry = require('./entry.js')(config);
 let isProd = process.env.NODE_ENV == 'production';
@@ -42,6 +44,12 @@ const webConfig = {
         path: /:/g.test(config.web.outputPath)?config.web.outputPath:pathTo.join(config.root, config.web.outputPath),
         filename: config.web.outputFilename
     },
+    resolve: {
+        extensions: ['.js', '.vue', '.json'],
+        alias: {
+            'components': pathTo.join(config.root, '/src/components')
+        }
+    },
     module: {
         rules: [
             {
@@ -61,9 +69,25 @@ const webConfig = {
             },
             {
                 test: /\.vue(\?[^?]+)?$/,
-                use: [{
-                    loader: 'vue-loader'
-                }]
+                loader: `vue-loader`,
+                options: {
+                    /**
+                     * important! should use postTransformNode to add $processStyle for
+                     * inline style normalization.
+                     */
+                    compilerModules: [
+                        {
+                            postTransformNode: el => {
+                                el.staticStyle = `$processStyle(${el.staticStyle})`;
+                                el.styleBinding = `$processStyle(${el.styleBinding})`;
+                            }
+                        }
+                    ],
+                    postcss: [
+                        weexCSS({env: 'web',relLenUnit:'em'}),
+                        prefixer({ browsers: ['last 20 versions'] })
+                    ]
+                }
             }
         ]
     },
@@ -75,6 +99,12 @@ const weexConfig = {
         path: /:/g.test(config.native.outputPath)?config.native.outputPath:pathTo.join(config.root, config.native.outputPath),
         filename: config.native.outputFilename
     },
+    resolve: {
+        extensions: ['.js', '.vue', '.json'],
+        alias: {
+            'components': pathTo.join(config.root, '/src/components')
+        }
+    },
     module: {
         rules: [
             {
@@ -85,9 +115,12 @@ const weexConfig = {
             },
             {
                 test: /\.(vu|w)e(\?[^?]+)?$/,
-                use: [{
-                    loader: 'weex-loader'
-                }]
+                loader: `weex-loader`,
+                options: {
+                    postcss: [
+                        weexCSS({env: 'weex',relLenUnit:'em'})
+                    ]
+                }
             }
         ],
     },

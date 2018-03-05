@@ -8,7 +8,7 @@ Vue.use(Router)
 export default new Router({
     // mode: 'abstract',
     routes: [
-        { path: '/', redirect: '/ViewRecord' },
+        { path: '/', redirect: '/record' },
         { path: '/record', component: ViewRecord },
         { path: '/home', component: ViewHome }
     ]

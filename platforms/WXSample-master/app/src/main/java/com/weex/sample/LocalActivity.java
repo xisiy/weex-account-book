@@ -31,11 +31,7 @@ public class LocalActivity extends AppCompatActivity implements IWXRenderListene
     Uri uri = it.getData();
     String path = "";
     if(uri == null){
-      path = "index.js";
-    }else if(uri.getScheme().equals("maowo")){
-      Pattern pat=Pattern.compile("^/+");
-      Matcher mat=pat.matcher(uri.getSchemeSpecificPart());
-      path = mat.replaceAll("");
+      path = "record/index.js";
     }else{
       path = uri.toString();
     }
@@ -50,7 +46,6 @@ public class LocalActivity extends AppCompatActivity implements IWXRenderListene
      * jsonInitData 可以为空。
      */
     Map<String,Object> options=new HashMap<>();
-    options.put(WXSDKInstance.BUNDLE_URL,"maowo://");
     mWXSDKInstance.render("WXSample", WXFileUtils.loadAsset(path, this), options, null, WXRenderStrategy.APPEND_ASYNC);
   }
 

@@ -5,5 +5,7 @@
 # IntelliJ project files
 .idea
 *.iml
+dist
 out
 gen
+/platforms/WXSample-master/app/src/main/assets/

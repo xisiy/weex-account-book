@@ -11,6 +11,15 @@ const cleanCache = () => {
     fs.removeSync(path.join(config.root,config.native.outputPath));
 }
 
+const copyAssets = ()=>{
+    fs.copy(config.assetsPath, path.join(config.root,config.web.outputPath), function(err) {
+        if (err) return console.error(err)
+    });
+    fs.copy(config.assetsPath, path.join(config.root,config.native.outputPath),function(err) {
+        if (err) return console.error(err)
+    });
+}
+
 const setNativeEntry = (dir) => {
     dir = dir || '.';
     const directory = path.join(config.root, config.source , dir);
@@ -40,6 +49,7 @@ module.exports = (conf) => {
         ignore[path.join(rootSource, config.native.ignore[idx])] = true;
     }
     setNativeEntry();
+    copyAssets();
     return {
         web:{
             index: path.join(config.root, config.web.entryPath)
