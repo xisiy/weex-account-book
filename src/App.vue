@@ -1,25 +1,22 @@
 <template>
-    <div class="app" @androidback="back">
-        <router-view></router-view>
-    </div>
+    <transition name="fade" mode="out-in">
+        <router-view />
+    </transition>
 </template>
 
 <style>
-    .app {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
+    body {
+        margin: 0;
+    }
+
+    .fade-enter-active, .fade-leave-active {
+        transition: opacity .3s
+    }
+    .fade-enter, .fade-leave-active {
+        opacity: 0
     }
 </style>
 
 <script>
-    export default {
-        methods: {
-            back: function () {
-                this.$router.back()
-            }
-        }
-    }
+    export default {}
 </script>
