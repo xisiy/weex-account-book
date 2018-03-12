@@ -31,7 +31,8 @@ const setNativeEntry = (dir) => {
 
         if (stat.isFile() && extname === '.vue' || extname === '.we') {
             const name = path.join(dir, path.basename(file, extname));
-            nativeEntry[name] = fullpath + '?entry=true';
+            let entryPath = fullpath + '?entry=true';
+            nativeEntry[name] = config.native.mixin.enable?[config.native.mixin.path,entryPath]:entryPath;
         } else if (stat.isDirectory() && file !== 'build' && file !== 'include') {
             const subdir = path.join(dir, file);
             setNativeEntry(subdir);

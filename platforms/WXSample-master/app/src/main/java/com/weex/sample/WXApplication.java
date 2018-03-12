@@ -28,7 +28,7 @@ public class WXApplication extends Application {
     WXSDKEngine.initialize(this, config);
     try {
       WXSDKEngine.registerModule("poneInfo", PhoneInfoModule.class);
-      WXSDKEngine.registerModule("mwModule", MwModule.class);
+      WXSDKEngine.registerModule("mwBase", MwBase.class);
       WXSDKEngine.registerComponent("rich", RichText.class, false);
     } catch (WXException e) {
       e.printStackTrace();

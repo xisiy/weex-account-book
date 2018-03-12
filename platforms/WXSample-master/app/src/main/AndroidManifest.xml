@@ -27,7 +27,7 @@
                 <category android:name="android.intent.category.DEFAULT"></category>
                 <category android:name="android.intent.category.BROWSABLE"></category>
 
-                <data android:scheme="maowo"></data>
+                <data android:scheme="local"></data>
                 <data android:scheme="http"></data>
             </intent-filter>
         </activity>

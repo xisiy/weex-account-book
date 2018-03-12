@@ -14,10 +14,10 @@ module.exports = {
     native:{
         outputPath:'platforms/WXSample-master/app/src/main/assets',
         outputFilename:'[name].js',
-        ignore: ['assets','components','router','mixin','App.vue'],//不作为入口的路径，如指定文件需指定扩展名如index.vue
+        ignore: ['assets','components','router','mixin','App.vue','native.js'],//不作为入口的路径，如指定文件需指定扩展名如index.vue
         mixin: {
             enable: true,
-            path:path.join(rootDir,'src/mixin/index.js')
+            path:path.join(rootDir,'src/native.js')
         }
     }
 }
