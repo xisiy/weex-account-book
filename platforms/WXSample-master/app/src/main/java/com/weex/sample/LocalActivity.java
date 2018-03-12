@@ -33,7 +33,7 @@ public class LocalActivity extends AppCompatActivity implements IWXRenderListene
     if(uri == null){
       path = "record/index.js";
     }else{
-      path = uri.toString();
+      path = uri.getPath().substring(1)+"/index.js";
     }
     setContentView(R.layout.activity_main);
 

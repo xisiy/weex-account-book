@@ -1,5 +1,8 @@
 <template>
     <list class="record">
+        <refresh @refresh="jump('/home')">
+            <loading-indicator></loading-indicator>
+        </refresh>
         <cell class="record-item">
             <image class="record-cover" resize="stretch" src="images/cover.png"></image>
             <div class="record-tips">
